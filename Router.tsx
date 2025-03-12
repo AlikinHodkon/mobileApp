@@ -1,8 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { Home, SignIn } from "./pages";
+import { SignIn } from "./pages";
+import { Tabs } from "./components";
 
 type RootStackParamList = {
-    Home: undefined;
+    Main: undefined;
     SignIn: undefined;
   };
 
@@ -17,7 +18,7 @@ export function Router() {
     return (
         <Stack.Navigator>
             <Stack.Screen name="SignIn" component={SignIn} />
-            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Main" component={Tabs} />
         </Stack.Navigator>
     )
 }

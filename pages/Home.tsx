@@ -14,9 +14,12 @@ export const Home = () => {
     AsyncStorage.getItem('userData').then((data) => data !== null ? setUserData(JSON.parse(data)) : null)
   }, []) 
 
+
   return (
-    <View style={HomeStyles.wrapper}>
-        <Text>Welcome, {userData.name}</Text>
+    <View>
+      <View style={HomeStyles.wrapper}>
+          <Text>Welcome, {userData.name}</Text>
+      </View>
     </View>
   )
 }

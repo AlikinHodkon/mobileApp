@@ -21,8 +21,12 @@ export const SignIn = () => {
 
   const handlePress = (value: UserData) => {
     storeData(value)
-    navigation.navigate('Home')
+    navigation.navigate('Main')
   }
+
+  useEffect(() => {
+    AsyncStorage.getItem('userData').then((data) => data ?? navigation.navigate('Main'))
+  }, [])
 
   useEffect(() => {
     validateForm();
