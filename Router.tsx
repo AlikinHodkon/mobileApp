@@ -1,6 +1,6 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { SignIn } from "./pages";
 import { Tabs } from "./components";
+import { useState } from "react";
 
 type RootStackParamList = {
     Main: undefined;
@@ -14,11 +14,7 @@ declare global {
 }
 
 export function Router() {
-    const Stack = createNativeStackNavigator<RootStackParamList>()
-    return (
-        <Stack.Navigator>
-            <Stack.Screen name="SignIn" component={SignIn} />
-            <Stack.Screen name="Main" component={Tabs} />
-        </Stack.Navigator>
-    )
+    const [isAuth, setIsAuth] = useState(false)
+    if (isAuth) return (<Tabs setIsAuth={setIsAuth} />) 
+    else return (<SignIn setIsAuth={setIsAuth} />)
 }

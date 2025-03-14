@@ -9,7 +9,7 @@ export type UserData = {
     password: string
 }
 
-export const SignIn = () => {
+export const SignIn = ({setIsAuth}: any) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -17,15 +17,13 @@ export const SignIn = () => {
   const [activeTab, setActiveTab] = useState(true)
   const [isFormValid, setIsFormValid] = useState(false)
 
-  const navigation = useNavigation();
-
   const handlePress = (value: UserData) => {
     storeData(value)
-    navigation.navigate('Main')
+    setIsAuth(true)
   }
 
   useEffect(() => {
-    AsyncStorage.getItem('userData').then((data) => data ?? navigation.navigate('Main'))
+    AsyncStorage.getItem('userData').then((data) => data ? setIsAuth(true) : setIsAuth(false))
   }, [])
 
   useEffect(() => {

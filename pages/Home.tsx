@@ -1,9 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { useEffect, useState } from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { Button, StyleSheet, Text, View } from "react-native"
 import { UserData } from "./SignIn"
 
-export const Home = () => {
+export const Home = ({setIsAuth}: any) => {
   const [userData, setUserData] = useState<UserData>({
     name: "",
     email: "",
@@ -12,13 +12,19 @@ export const Home = () => {
   
   useEffect(() => {
     AsyncStorage.getItem('userData').then((data) => data !== null ? setUserData(JSON.parse(data)) : null)
-  }, []) 
+  }, [])
+  
+  const handleLeave = async () => {
+    await AsyncStorage.removeItem('userData')
+    setIsAuth(false)
+  }
 
 
   return (
     <View>
       <View style={HomeStyles.wrapper}>
           <Text>Welcome, {userData.name}</Text>
+          <Button onPress={handleLeave} title="Leave" />
       </View>
     </View>
   )
