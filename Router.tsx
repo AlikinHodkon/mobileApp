@@ -15,6 +15,12 @@ declare global {
 
 export function Router() {
     const [isAuth, setIsAuth] = useState(false)
-    if (isAuth) return (<Tabs setIsAuth={setIsAuth} />) 
-    else return (<SignIn setIsAuth={setIsAuth} />)
+    return (
+      <>
+        { 
+          isAuth ? <Tabs setIsAuth={setIsAuth} /> 
+          : <SignIn setIsAuth={setIsAuth} />
+        } 
+      </>
+    )
 }

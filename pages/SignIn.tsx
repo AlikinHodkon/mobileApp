@@ -55,15 +55,15 @@ export const SignIn = ({setIsAuth}: any) => {
       {activeTab ? (
         <View>
           <TextInput style={SignInStyles.input} onChangeText={setName} value={name} placeholder='Enter name' />
-          <TextInput style={SignInStyles.input} onChangeText={setPassword} value={password} placeholder='Enter password' />
+          <TextInput style={SignInStyles.input} onChangeText={setPassword} value={password} placeholder='Enter password' secureTextEntry />
           <Button onPress={() => handlePress({name: name, email: email, password: password})} title='Sign in' disabled={true} />
         </View>
       ) : (
         <View>
           <TextInput style={SignInStyles.input} onChangeText={setName} value={name} placeholder='Enter name' />     
           <TextInput style={SignInStyles.input} onChangeText={setEmail} value={email} placeholder='Enter email' />
-          <TextInput style={SignInStyles.input} onChangeText={setPassword} value={password} placeholder='Enter password' />
-          <TextInput style={SignInStyles.input} onChangeText={setRepeatPassword} value={repeatPassword} placeholder='Repeat password' />
+          <TextInput style={SignInStyles.input} onChangeText={setPassword} value={password} placeholder='Enter password' secureTextEntry />
+          <TextInput style={SignInStyles.input} onChangeText={setRepeatPassword} value={repeatPassword} placeholder='Repeat password' secureTextEntry />
           <Button onPress={() => handlePress({name: name, email: email, password: password})} title='Registrate' disabled={!isFormValid} /> 
         </View>
       )}

@@ -5,9 +5,8 @@ export const News = () => {
     return (
       <View>
         <View style={HomeStyles.wrapper}>
-            <Text>Welcome, to the following</Text>
+            <Text style={HomeStyles.header}>Welcome, to the following</Text>
         </View>
-        {/* <Tabs /> */}
       </View>
     )
   }
@@ -17,6 +16,11 @@ export const News = () => {
       display: 'flex',
       justifyContent: 'center',
       width: 'auto',
-      height: 'auto'
+      height: '100%'
+    },
+    header: {
+      textAlign: 'center',
+      fontSize: 24,
+      marginBottom: 5
     }
   })
