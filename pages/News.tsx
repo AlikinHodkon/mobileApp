@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View } from "react-native"
 
-export const News = () => {
-  
+export const News = () => { 
     return (
       <View>
         <View style={HomeStyles.wrapper}>
