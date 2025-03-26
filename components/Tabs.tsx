@@ -1,13 +1,14 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Following, Home, News } from '../pages'
+import { Following, News } from '../pages'
+import Main from './Main'
 
 const Tab = createBottomTabNavigator()
 
 export const Tabs = ({ setIsAuth }: any) => (
   <Tab.Navigator>
     <Tab.Screen
-      name='Home'
-      children={() => <Home setIsAuth={setIsAuth} />}
+      name='Main'
+      children={() => <Main setIsAuth={setIsAuth} />}
       options={{ title: 'More For You' }}
     />
     <Tab.Screen

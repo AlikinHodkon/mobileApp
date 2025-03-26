@@ -10,9 +10,9 @@ import {
 } from 'react-native'
 import { UserData } from './SignIn'
 import { useGetNews } from '../api/useGetNews'
-import { Article } from '../components/Article'
+import { ArticleItem } from '../components/ArticleItem'
 
-export const Home = ({ setIsAuth }: any) => {
+export const Home = ({ setIsAuth, setArticleContent }: any) => {
   const [userData, setUserData] = useState<UserData>({
     name: '',
     email: '',
@@ -54,9 +54,10 @@ export const Home = ({ setIsAuth }: any) => {
           onEndReached={() => fetchNextPage()}
           keyExtractor={(_, index) => index.toString()}
           renderItem={({ item }) => (
-            <Article
-              {...item}
+            <ArticleItem
               key={item.id}
+              item={item}
+              setArticleContent={setArticleContent}
             />
           )}
         ></FlatList>

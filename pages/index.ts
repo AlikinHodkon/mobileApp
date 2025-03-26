@@ -1,3 +1,4 @@
+export { Article } from './Article'
 export { Following } from './Following'
 export { Home } from './Home'
 export { News } from './News'
