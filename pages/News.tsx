@@ -1,25 +1,25 @@
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, View } from 'react-native'
 
-export const News = () => { 
-    return (
-      <View>
-        <View style={HomeStyles.wrapper}>
-            <Text style={HomeStyles.header}>Welcome, to the following</Text>
-        </View>
+export const News = () => {
+  return (
+    <View>
+      <View style={HomeStyles.wrapper}>
+        <Text style={HomeStyles.header}>Welcome, to the following</Text>
       </View>
-    )
-  }
-  
-  const HomeStyles = StyleSheet.create({
-    wrapper: {
-      display: 'flex',
-      justifyContent: 'center',
-      width: 'auto',
-      height: '100%'
-    },
-    header: {
-      textAlign: 'center',
-      fontSize: 24,
-      marginBottom: 5
-    }
-  })
+    </View>
+  )
+}
+
+const HomeStyles = StyleSheet.create({
+  wrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    width: 'auto',
+    height: '100%',
+  },
+  header: {
+    textAlign: 'center',
+    fontSize: 24,
+    marginBottom: 5,
+  },
+})
