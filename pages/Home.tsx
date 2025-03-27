@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   Button,
   FlatList,
+  ImageBackground,
   StyleSheet,
   Text,
   View,
@@ -18,14 +19,14 @@ export const Home = ({ setIsAuth, setArticleContent }: any) => {
     email: '',
     password: '',
   })
-  const [isLoading, setIsLoading] = useState(true)
+  const [isPageLoading, setIsPageLoading] = useState(true)
 
-  const { data: news, fetchNextPage } = useGetNews()
+  const { data: news, isLoading, fetchNextPage } = useGetNews()
 
   useEffect(() => {
     AsyncStorage.getItem('userData')
       .then((data) => (data !== null ? setUserData(JSON.parse(data)) : null))
-      .finally(() => setIsLoading(false))
+      .finally(() => setIsPageLoading(false))
   }, [])
 
   const handleLeave = async () => {
@@ -33,7 +34,7 @@ export const Home = ({ setIsAuth, setArticleContent }: any) => {
     setIsAuth(false)
   }
 
-  if (isLoading)
+  if (isPageLoading || isLoading)
     return (
       <View style={HomeStyles.loader}>
         <ActivityIndicator size={'large'} />
@@ -41,7 +42,12 @@ export const Home = ({ setIsAuth, setArticleContent }: any) => {
     )
 
   return (
-    <View>
+    <ImageBackground
+      style={{
+        flex: 1,
+      }}
+      source={require('../assets/Background.png')}
+    >
       <View style={HomeStyles.wrapper}>
         <Text style={HomeStyles.header}>Welcome, {userData.name}</Text>
         <Button
@@ -53,6 +59,7 @@ export const Home = ({ setIsAuth, setArticleContent }: any) => {
           data={news?.pages.map((page) => page.results).flat()}
           onEndReached={() => fetchNextPage()}
           keyExtractor={(_, index) => index.toString()}
+          onEndReachedThreshold={0.4}
           renderItem={({ item }) => (
             <ArticleItem
               key={item.id}
@@ -62,7 +69,7 @@ export const Home = ({ setIsAuth, setArticleContent }: any) => {
           )}
         ></FlatList>
       </View>
-    </View>
+    </ImageBackground>
   )
 }
 
@@ -77,6 +84,7 @@ const HomeStyles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 24,
     marginBottom: 5,
+    color: '#FFF',
   },
   loader: {
     height: '100%',

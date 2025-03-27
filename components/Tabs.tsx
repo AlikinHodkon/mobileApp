@@ -9,7 +9,9 @@ export const Tabs = ({ setIsAuth }: any) => (
     <Tab.Screen
       name='Main'
       children={() => <Main setIsAuth={setIsAuth} />}
-      options={{ title: 'More For You' }}
+      options={{
+        headerShown: false,
+      }}
     />
     <Tab.Screen
       name='News+'
