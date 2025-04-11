@@ -1,5 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useEffect, useState } from 'react'
 import {
   ActivityIndicator,
   Button,
@@ -9,30 +7,15 @@ import {
   Text,
   View,
 } from 'react-native'
-import { UserData } from './SignIn'
-import { useGetNews } from '../api/useGetNews'
+import { UserStorageService } from '../../model/auth/UserStorageService'
+import { useGetNews } from '../../viewmodel/hooks/useGetNews'
 import { ArticleItem } from '../components/ArticleItem'
+import { useUserViewModel } from '../../viewmodel/hooks/useUserViewModal'
 
 export const Home = ({ setIsAuth, setArticleContent }: any) => {
-  const [userData, setUserData] = useState<UserData>({
-    name: '',
-    email: '',
-    password: '',
-  })
-  const [isPageLoading, setIsPageLoading] = useState(true)
-
   const { data: news, isLoading, fetchNextPage } = useGetNews()
 
-  useEffect(() => {
-    AsyncStorage.getItem('userData')
-      .then((data) => (data !== null ? setUserData(JSON.parse(data)) : null))
-      .finally(() => setIsPageLoading(false))
-  }, [])
-
-  const handleLeave = async () => {
-    await AsyncStorage.removeItem('userData')
-    setIsAuth(false)
-  }
+  const { userData, isPageLoading } = useUserViewModel()
 
   if (isPageLoading || isLoading)
     return (
@@ -46,12 +29,12 @@ export const Home = ({ setIsAuth, setArticleContent }: any) => {
       style={{
         flex: 1,
       }}
-      source={require('../assets/Background.png')}
+      source={require('../../assets/Background.png')}
     >
       <View style={HomeStyles.wrapper}>
-        <Text style={HomeStyles.header}>Welcome, {userData.name}</Text>
+        <Text style={HomeStyles.header}>Welcome, {userData?.name}</Text>
         <Button
-          onPress={handleLeave}
+          onPress={() => UserStorageService.handleLeave(setIsAuth)}
           title='Leave'
         />
         <FlatList
@@ -60,6 +43,7 @@ export const Home = ({ setIsAuth, setArticleContent }: any) => {
           onEndReached={() => fetchNextPage()}
           keyExtractor={(_, index) => index.toString()}
           onEndReachedThreshold={0.4}
+          ListFooterComponent={<ActivityIndicator size={'large'} />}
           renderItem={({ item }) => (
             <ArticleItem
               key={item.id}

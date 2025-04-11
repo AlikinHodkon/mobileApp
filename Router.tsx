@@ -1,6 +1,8 @@
-import { SignIn } from './pages'
-import { Tabs } from './components'
 import { useState } from 'react'
+import { Tabs } from './view/components/Tabs'
+import { SignIn } from './view/screens/SignIn'
+import { useAuthViewModel } from './viewmodel/hooks/useAuthViewModal'
+import { ActivityIndicator } from 'react-native'
 
 type RootStackParamList = {
   Main: undefined
@@ -14,7 +16,9 @@ declare global {
 }
 
 export function Router() {
-  const [isAuth, setIsAuth] = useState(false)
+  const { isAuth, setIsAuth, isLoading } = useAuthViewModel()
+
+  if (isLoading) return <ActivityIndicator size={'large'} />
 
   return (
     <>

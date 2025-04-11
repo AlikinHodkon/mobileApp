@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React, { useState } from 'react'
-import { Article, Home } from '../pages'
+import { Home } from './Home'
+import { Article } from './Article'
 
 export default function Main({ setIsAuth }: any) {
   const Stack = createStackNavigator()

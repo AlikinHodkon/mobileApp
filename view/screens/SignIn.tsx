@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useNavigation } from '@react-navigation/native'
 import Checkbox from 'expo-checkbox'
 import React, { useEffect, useState } from 'react'
 import {
@@ -10,60 +9,29 @@ import {
   TextInput,
   View,
 } from 'react-native'
-
-export type UserData = {
-  name: string
-  email: string
-  password: string
-}
+import { UserData } from '../../model/userData'
+import { validateForm } from '../../model/auth/validateForm'
+import { UserStorageService } from '../../model/auth/UserStorageService'
 
 export const SignIn = ({ setIsAuth }: any) => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [agreement, setAgreement] = useState(false)
-  const [repeatPassword, setRepeatPassword] = useState('')
+  const [userData, setUserData] = useState<UserData>({
+    name: '',
+    email: '',
+    password: '',
+    repeatPassword: '',
+    agreement: false,
+  })
   const [activeTab, setActiveTab] = useState(true)
   const [isFormValid, setIsFormValid] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
 
   const handlePress = (value: UserData) => {
-    storeData(value)
+    UserStorageService.storeData(value)
     setIsAuth(true)
   }
 
   useEffect(() => {
-    AsyncStorage.getItem('userData')
-      .then((data) => (data ? setIsAuth(true) : setIsAuth(false)))
-      .finally(() => setIsLoading(false))
-  }, [])
-
-  useEffect(() => {
-    validateForm()
-  }, [name, email, password, repeatPassword])
-
-  const validateForm = () => {
-    if (
-      !name ||
-      !email ||
-      !password ||
-      !repeatPassword ||
-      password !== repeatPassword ||
-      !agreement
-    ) {
-      setIsFormValid(false)
-      return
-    }
-    setIsFormValid(true)
-  }
-
-  const storeData = async (value: UserData) => {
-    try {
-      await AsyncStorage.setItem('userData', JSON.stringify(value))
-    } catch (error) {}
-  }
-
-  if (isLoading) return <ActivityIndicator size={'large'} />
+    validateForm(userData, setIsFormValid)
+  }, [userData])
 
   return (
     <View style={SignInStyles.container}>
@@ -83,65 +51,78 @@ export const SignIn = ({ setIsAuth }: any) => {
         <View>
           <TextInput
             style={SignInStyles.input}
-            onChangeText={setName}
-            value={name}
+            onChangeText={(text: string) =>
+              setUserData((prev) => ({ ...prev, name: text }))
+            }
+            value={userData.name}
             placeholder='Enter name'
           />
           <TextInput
             style={SignInStyles.input}
-            onChangeText={setPassword}
-            value={password}
+            onChangeText={(text: string) =>
+              setUserData((prev) => ({ ...prev, password: text }))
+            }
+            value={userData.password}
             placeholder='Enter password'
             secureTextEntry
           />
           <Button
-            onPress={() =>
-              handlePress({ name: name, email: email, password: password })
-            }
+            onPress={() => handlePress(userData)}
             title='Sign in'
-            disabled={false}
+            disabled={!userData.name}
           />
         </View>
       ) : (
         <View>
           <TextInput
             style={SignInStyles.input}
-            onChangeText={setName}
-            value={name}
+            onChangeText={(text: string) =>
+              setUserData((prev) => ({ ...prev, name: text }))
+            }
+            value={userData.name}
             placeholder='Enter name'
           />
           <TextInput
             style={SignInStyles.input}
-            onChangeText={setEmail}
-            value={email}
+            onChangeText={(text: string) =>
+              setUserData((prev) => ({ ...prev, email: text }))
+            }
+            value={userData.email}
             placeholder='Enter email'
           />
           <TextInput
             style={SignInStyles.input}
-            onChangeText={setPassword}
-            value={password}
+            onChangeText={(text: string) =>
+              setUserData((prev) => ({ ...prev, password: text }))
+            }
+            value={userData.password}
             placeholder='Enter password'
             secureTextEntry
           />
           <TextInput
             style={SignInStyles.input}
-            onChangeText={setRepeatPassword}
-            value={repeatPassword}
+            onChangeText={(text: string) =>
+              setUserData((prev) => ({
+                ...prev,
+                repeatPassword: text,
+              }))
+            }
+            value={userData.repeatPassword}
             placeholder='Repeat password'
             secureTextEntry
           />
           <View style={SignInStyles.checkboxWrapper}>
             <Checkbox
-              onValueChange={setAgreement}
-              value={agreement}
-              color={agreement ? '#2196F3' : ''}
+              onValueChange={(check: boolean) =>
+                setUserData((prev) => ({ ...prev, agreement: check }))
+              }
+              value={userData.agreement}
+              color={userData.agreement ? '#2196F3' : ''}
             />
             <Text style={{ marginLeft: 5 }}>Agree with user agreement</Text>
           </View>
           <Button
-            onPress={() =>
-              handlePress({ name: name, email: email, password: password })
-            }
+            onPress={() => handlePress(userData)}
             title='Registrate'
             disabled={!isFormValid}
           />

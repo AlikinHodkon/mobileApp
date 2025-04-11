@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Following, News } from '../pages'
-import Main from './Main'
+import Main from '../screens/Main'
+import { News } from './News'
+import { Following } from '../screens/Following'
 
 const Tab = createBottomTabNavigator()
 
