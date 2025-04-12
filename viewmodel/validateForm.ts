@@ -1,4 +1,5 @@
-import { UserData } from "../userData"
+import { UserData } from "../model/UserData"
+
 
 export const validateForm = (userData: UserData, setIsFormValid: (value: boolean) => void) => {
     if (

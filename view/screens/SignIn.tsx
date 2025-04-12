@@ -1,17 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import Checkbox from 'expo-checkbox'
 import React, { useEffect, useState } from 'react'
-import {
-  ActivityIndicator,
-  Button,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native'
-import { UserData } from '../../model/userData'
-import { validateForm } from '../../model/auth/validateForm'
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
+import { UserData } from '../../model/UserData'
 import { UserStorageService } from '../../model/auth/UserStorageService'
+import { validateForm } from '../../viewmodel/validateForm'
 
 export const SignIn = ({ setIsAuth }: any) => {
   const [userData, setUserData] = useState<UserData>({

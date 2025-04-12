@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { UserData } from "../../model/userData";
+import { UserData } from "../../model/UserData";
 import { UserStorageService } from "../../model/auth/UserStorageService";
 
 export const useUserViewModel = () => {

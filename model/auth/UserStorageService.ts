@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { UserData } from "../userData";
+import { UserData } from "../UserData";
 
 export const UserStorageService = {
     storeData: async (value: UserData) => {

@@ -6,8 +6,13 @@ import {
   Text,
   View,
 } from 'react-native'
+import { ArticleContent } from '../../model/ArticleContent'
 
-export function Article({ articleContent }: any) {
+type Props = {
+  articleContent: ArticleContent
+}
+
+export function Article({ articleContent }: Props) {
   const size = Dimensions.get('window')
   return (
     <View>
